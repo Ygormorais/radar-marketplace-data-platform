@@ -1,0 +1,34 @@
+name: radar_gold
+version: 1.0.0
+config-version: 2
+
+profile: radar_gold
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+snapshot-paths: ["snapshots"]
+target-path: target
+clean-targets: [target, dbt_packages, logs]
+
+vars:
+  silver_database: lh_silver
+  gold_start_date: "2016-01-01"
+  gold_end_date: "2030-12-31"
+
+models:
+  radar_gold:
+    staging:
+      +materialized: view
+      +schema: stg
+    dimensions:
+      +materialized: table
+      +schema: gold
+    facts:
+      +materialized: table
+      +schema: gold
+    marts:
+      +materialized: table
+      +schema: mart
+

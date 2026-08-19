@@ -1,0 +1,9 @@
+environment: prod
+
+generator:
+  invalid_event_rate: 0.0
+
+quality:
+  max_quarantine_rate: 0.005
+  freshness_minutes: 15
+

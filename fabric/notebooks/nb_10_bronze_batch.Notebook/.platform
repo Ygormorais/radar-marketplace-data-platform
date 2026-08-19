@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_10_bronze_batch",
+    "description": "Ingestão Olist para Bronze com contrato, idempotência e quarantine."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "a10e5ca0-5d70-49c8-90c7-21e430f96bc1"
+  }
+}

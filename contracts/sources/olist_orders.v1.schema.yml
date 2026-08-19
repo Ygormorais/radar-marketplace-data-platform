@@ -1,0 +1,18 @@
+name: olist_orders
+version: 1.0.0
+format: csv
+encoding: utf-8
+primary_key: [order_id]
+columns:
+  order_id: { type: string, nullable: false }
+  customer_id: { type: string, nullable: false }
+  order_status: { type: string, nullable: false }
+  order_purchase_timestamp: { type: timestamp, nullable: false }
+  order_approved_at: { type: timestamp, nullable: true }
+  order_delivered_carrier_date: { type: timestamp, nullable: true }
+  order_delivered_customer_date: { type: timestamp, nullable: true }
+  order_estimated_delivery_date: { type: timestamp, nullable: false }
+evolution:
+  compatibility: backward
+  allow_additional_columns: false
+

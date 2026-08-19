@@ -1,0 +1,93 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "VisualKpiSellers000001",
+  "position": {
+    "x": 24,
+    "y": 82,
+    "z": 2000,
+    "height": 94,
+    "width": 1232,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mart_seller_scorecard"
+                    }
+                  },
+                  "Property": "GMV vendedor"
+                }
+              },
+              "queryRef": "mart_seller_scorecard.GMV vendedor",
+              "nativeQueryRef": "GMV vendedor"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mart_seller_scorecard"
+                    }
+                  },
+                  "Property": "Pedidos vendedor"
+                }
+              },
+              "queryRef": "mart_seller_scorecard.Pedidos vendedor",
+              "nativeQueryRef": "Pedidos vendedor"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mart_seller_scorecard"
+                    }
+                  },
+                  "Property": "SLA vendedor %"
+                }
+              },
+              "queryRef": "mart_seller_scorecard.SLA vendedor %",
+              "nativeQueryRef": "SLA vendedor %"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

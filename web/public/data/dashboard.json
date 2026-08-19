@@ -1,0 +1,49 @@
+{
+  "metadata": {
+    "mode": "demo",
+    "generatedAt": "2026-08-18T20:00:00-03:00",
+    "label": "Snapshot demonstrativo derivado do contrato Gold",
+    "sourceModels": ["mart_executive_daily", "mart_seller_scorecard", "mart_delivery_sla", "mart_funnel_conversion"]
+  },
+  "periods": [
+    {
+      "year": 2018,
+      "previous": {"gmv": 14500000, "orders": 91138, "ticket": 159.04, "sla": 0.895, "review": 4.06},
+      "monthly": [
+        {"month":"Jan","gmv":960000,"orders":6210,"sla":0.902,"review":4.10},{"month":"Fev","gmv":1080000,"orders":6870,"sla":0.899,"review":4.11},{"month":"Mar","gmv":1010000,"orders":6530,"sla":0.893,"review":4.08},{"month":"Abr","gmv":1260000,"orders":7810,"sla":0.886,"review":4.14},{"month":"Mai","gmv":1180000,"orders":7330,"sla":0.891,"review":4.15},{"month":"Jun","gmv":1390000,"orders":8290,"sla":0.882,"review":4.17},{"month":"Jul","gmv":1320000,"orders":7980,"sla":0.879,"review":4.16},{"month":"Ago","gmv":1530000,"orders":9070,"sla":0.871,"review":4.21},{"month":"Set","gmv":1460000,"orders":8740,"sla":0.874,"review":4.19},{"month":"Out","gmv":1680000,"orders":9920,"sla":0.865,"review":4.23},{"month":"Nov","gmv":1590000,"orders":9580,"sla":0.868,"review":4.20},{"month":"Dez","gmv":1940000,"orders":10412,"sla":0.861,"review":4.28}
+      ],
+      "regions": [
+        {"state":"SP","gmv":6160000,"orders":36980,"atRisk":1920,"late":1410,"sla":0.901},{"state":"RJ","gmv":2950000,"orders":17640,"atRisk":1510,"late":1090,"sla":0.862},{"state":"MG","gmv":2130000,"orders":12830,"atRisk":1090,"late":810,"sla":0.874},{"state":"BA","gmv":1280000,"orders":7720,"atRisk":810,"late":590,"sla":0.851},{"state":"PR","gmv":1120000,"orders":6810,"atRisk":590,"late":430,"sla":0.887},{"state":"RS","gmv":970000,"orders":5820,"atRisk":520,"late":390,"sla":0.881},{"state":"SC","gmv":810000,"orders":4920,"atRisk":390,"late":280,"sla":0.894},{"state":"PE","gmv":540000,"orders":3022,"atRisk":370,"late":260,"sla":0.842},{"state":"GO","gmv":260000,"orders":1730,"atRisk":210,"late":150,"sla":0.859},{"state":"ES","gmv":180000,"orders":1270,"atRisk":130,"late":90,"sla":0.872}
+      ],
+      "sellers": [
+        {"id":"8f2a…c91","state":"SP","gmv":612000,"orders":3240,"sla":0.934,"avgDelay":-1.8},{"id":"31bd…a72","state":"RJ","gmv":526000,"orders":2920,"sla":0.871,"avgDelay":0.7},{"id":"d94e…4bf","state":"MG","gmv":438000,"orders":2510,"sla":0.902,"avgDelay":-0.3},{"id":"a17c…8e2","state":"SP","gmv":367000,"orders":2110,"sla":0.886,"avgDelay":0.2},{"id":"02be…f19","state":"BA","gmv":301000,"orders":1850,"sla":0.823,"avgDelay":2.4},{"id":"e51f…1d8","state":"PR","gmv":284000,"orders":1670,"sla":0.918,"avgDelay":-0.8},{"id":"7a40…0cc","state":"RS","gmv":256000,"orders":1490,"sla":0.879,"avgDelay":0.5},{"id":"b283…ad1","state":"RJ","gmv":231000,"orders":1370,"sla":0.841,"avgDelay":1.9}
+      ],
+      "channels": [
+        {"source":"Direto","sessions":550000,"views":401500,"carts":109450,"checkouts":49500,"purchases":32450},{"source":"Busca","sessions":440000,"views":321200,"carts":83600,"checkouts":37840,"purchases":21560},{"source":"E-mail","sessions":275000,"views":206250,"carts":57750,"checkouts":25850,"purchases":11000},{"source":"Social","sessions":330000,"views":217800,"carts":52800,"checkouts":21780,"purchases":9900},{"source":"Afiliados","sessions":198000,"views":126720,"carts":29700,"checkouts":11880,"purchases":4356}
+      ]
+    },
+    {
+      "year": 2017,
+      "previous": {"gmv":12270000,"orders":78630,"ticket":156.05,"sla":0.887,"review":4.01},
+      "monthly": [
+        {"month":"Jan","gmv":790000,"orders":5320,"sla":0.904,"review":3.98},{"month":"Fev","gmv":840000,"orders":5510,"sla":0.901,"review":4.00},{"month":"Mar","gmv":930000,"orders":5940,"sla":0.898,"review":4.01},{"month":"Abr","gmv":1040000,"orders":6480,"sla":0.894,"review":4.03},{"month":"Mai","gmv":980000,"orders":6210,"sla":0.899,"review":4.02},{"month":"Jun","gmv":1160000,"orders":7180,"sla":0.896,"review":4.04},{"month":"Jul","gmv":1230000,"orders":7540,"sla":0.892,"review":4.05},{"month":"Ago","gmv":1280000,"orders":7960,"sla":0.891,"review":4.08},{"month":"Set","gmv":1360000,"orders":8360,"sla":0.888,"review":4.07},{"month":"Out","gmv":1420000,"orders":8790,"sla":0.885,"review":4.09},{"month":"Nov","gmv":1530000,"orders":9330,"sla":0.879,"review":4.11},{"month":"Dez","gmv":1940000,"orders":12518,"sla":0.871,"review":4.14}
+      ],
+      "regions": [
+        {"state":"SP","gmv":5510000,"orders":34400,"atRisk":1660,"late":1180,"sla":0.911},{"state":"RJ","gmv":2510000,"orders":15620,"atRisk":1280,"late":890,"sla":0.878},{"state":"MG","gmv":1880000,"orders":11720,"atRisk":950,"late":680,"sla":0.886},{"state":"BA","gmv":1090000,"orders":6870,"atRisk":680,"late":480,"sla":0.868},{"state":"PR","gmv":980000,"orders":6120,"atRisk":510,"late":370,"sla":0.897},{"state":"RS","gmv":850000,"orders":5240,"atRisk":440,"late":320,"sla":0.892},{"state":"SC","gmv":690000,"orders":4190,"atRisk":340,"late":240,"sla":0.901},{"state":"PE","gmv":430000,"orders":2780,"atRisk":310,"late":220,"sla":0.858},{"state":"GO","gmv":270000,"orders":1690,"atRisk":190,"late":130,"sla":0.871},{"state":"ES","gmv":290000,"orders":2508,"atRisk":160,"late":100,"sla":0.883}
+      ],
+      "sellers": [
+        {"id":"8f2a…c91","state":"SP","gmv":518000,"orders":2910,"sla":0.941,"avgDelay":-2.0},{"id":"31bd…a72","state":"RJ","gmv":461000,"orders":2630,"sla":0.889,"avgDelay":0.3},{"id":"d94e…4bf","state":"MG","gmv":389000,"orders":2290,"sla":0.914,"avgDelay":-0.6},{"id":"a17c…8e2","state":"SP","gmv":331000,"orders":1940,"sla":0.899,"avgDelay":-0.1},{"id":"02be…f19","state":"BA","gmv":268000,"orders":1680,"sla":0.851,"avgDelay":1.7},{"id":"e51f…1d8","state":"PR","gmv":247000,"orders":1490,"sla":0.927,"avgDelay":-1.0}
+      ],
+      "channels": [
+        {"source":"Direto","sessions":471000,"views":339120,"carts":91374,"checkouts":41448,"purchases":26376},{"source":"Busca","sessions":382000,"views":275040,"carts":70670,"checkouts":32088,"purchases":17954},{"source":"E-mail","sessions":229000,"views":169460,"carts":46945,"checkouts":20839,"purchases":8702},{"source":"Social","sessions":281000,"views":182650,"carts":43555,"checkouts":17600,"purchases":7868},{"source":"Afiliados","sessions":171000,"views":107730,"carts":25137,"checkouts":10089,"purchases":3591}
+      ]
+    }
+  ],
+  "quality": [
+    {"name":"Integridade de chaves Gold","scope":"6 fatos","status":"passed","coverage":1.0,"failedRows":0},
+    {"name":"Sobreposição SCD2","scope":"customer, seller, product","status":"passed","coverage":1.0,"failedRows":0},
+    {"name":"Reconciliação pedido × pagamento","scope":"98.742 pedidos","status":"warning","coverage":0.9994,"failedRows":59},
+    {"name":"Transições logísticas válidas","scope":"286.104 eventos","status":"passed","coverage":0.9999,"failedRows":18},
+    {"name":"Freshness Silver","scope":"9 fontes batch + 2 streams","status":"passed","coverage":1.0,"failedRows":0}
+  ]
+}

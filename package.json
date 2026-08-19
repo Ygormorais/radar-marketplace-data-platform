@@ -1,0 +1,9 @@
+{
+  "name": "radar-analytics-contracts",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Ferramentas de validação dos artefatos Power BI versionados.",
+  "devDependencies": {
+    "@microsoft/powerbi-report-authoring-cli": "^0.1.4"
+  }
+}

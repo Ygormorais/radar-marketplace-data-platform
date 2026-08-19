@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: stg_orders
+    columns:
+      - name: order_id
+        data_tests: [not_null, unique]
+      - name: customer_id
+        data_tests: [not_null]
+      - name: order_status
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [created, approved, invoiced, processing, shipped, delivered, unavailable, canceled]
+  - name: stg_order_items
+    data_tests:
+      - unique:
+          arguments:
+            column_name: "concat(order_id, '-', order_item_id)"
+    columns:
+      - name: order_id
+        data_tests: [not_null]
+      - name: gross_amount
+        data_tests: [not_null]
+  - name: stg_payments
+    columns:
+      - name: order_id
+        data_tests: [not_null]
+      - name: payment_amount
+        data_tests: [not_null]

@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: mart_executive_daily
+    columns:
+      - name: date_key
+        data_tests: [not_null, unique]
+  - name: mart_seller_scorecard
+    columns:
+      - name: seller_key
+        data_tests: [not_null, unique]
+  - name: mart_delivery_sla
+    data_tests:
+      - unique:
+          arguments:
+            column_name: "concat(date_key, '|', carrier_code, '|', location_state)"
+  - name: mart_funnel_conversion
+    data_tests:
+      - unique:
+          arguments:
+            column_name: "concat(date_key, '|', device_type, '|', traffic_source)"
+  - name: mart_customer_cohort
+    data_tests:
+      - unique:
+          arguments:
+            column_name: "concat(cohort_month, '|', months_since_first_purchase)"

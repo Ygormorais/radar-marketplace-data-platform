@@ -1,0 +1,8 @@
+environment: dev
+
+generator:
+  default_order_count: 10000
+
+quality:
+  freshness_minutes: 60
+

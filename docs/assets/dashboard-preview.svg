@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+  <title id="title">Radar — prévia da visão executiva</title>
+  <desc id="desc">Dashboard executivo de e-commerce com KPIs, tendência de GMV, ranking de sellers, risco logístico e conversão por canal. Os valores são ilustrativos.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07111f"/>
+      <stop offset="1" stop-color="#0c1b2d"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#24d3b5"/>
+      <stop offset="1" stop-color="#25a6f7"/>
+    </linearGradient>
+    <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#24d3b5" stop-opacity=".34"/>
+      <stop offset="1" stop-color="#24d3b5" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity=".22"/>
+    </filter>
+    <style>
+      .panel{fill:#10243a;stroke:#223b55;stroke-width:1}.eyebrow{font:600 12px 'Segoe UI',Arial;letter-spacing:1.8px;fill:#62e4cf}.title{font:700 30px 'Segoe UI',Arial;fill:#f4f8fc}.sub{font:400 13px 'Segoe UI',Arial;fill:#8ca4bb}.label{font:600 12px 'Segoe UI',Arial;fill:#8ca4bb}.value{font:700 25px 'Segoe UI',Arial;fill:#f4f8fc}.small{font:400 11px 'Segoe UI',Arial;fill:#758fa8}.positive{font:600 11px 'Segoe UI',Arial;fill:#62e4cf}.negative{font:600 11px 'Segoe UI',Arial;fill:#ff7890}.chartTitle{font:600 15px 'Segoe UI',Arial;fill:#eaf2f9}.axis{stroke:#2a435c;stroke-width:1}.tick{font:400 10px 'Segoe UI',Arial;fill:#718aa2}.legend{font:500 10px 'Segoe UI',Arial;fill:#93a9bc}
+    </style>
+  </defs>
+  <rect width="1440" height="900" fill="url(#bg)"/>
+  <circle cx="1300" cy="-80" r="330" fill="#25a6f7" opacity=".06"/>
+  <circle cx="-70" cy="810" r="270" fill="#24d3b5" opacity=".05"/>
+
+  <g transform="translate(48 34)">
+    <rect x="0" y="0" width="8" height="50" rx="4" fill="url(#accent)"/>
+    <text x="24" y="16" class="eyebrow">RADAR / MARKETPLACE DATA PLATFORM</text>
+    <text x="24" y="48" class="title">Visão executiva</text>
+    <text x="1010" y="24" class="sub">Período: 01/01/2018 — 31/12/2018</text>
+    <rect x="1196" y="0" width="148" height="34" rx="17" fill="#14304a" stroke="#28506d"/>
+    <circle cx="1216" cy="17" r="5" fill="#62e4cf"/>
+    <text x="1230" y="21" class="label">Direct Lake</text>
+  </g>
+
+  <g transform="translate(48 112)" filter="url(#shadow)">
+    <g><rect class="panel" width="248" height="112" rx="13"/><text x="20" y="28" class="label">GMV</text><text x="20" y="67" class="value">R$ 16,4 mi</text><text x="20" y="93" class="positive">▲ 12,8% vs. período anterior</text><path d="M179 79 C193 62 204 72 218 50 C226 40 235 45 242 32" fill="none" stroke="#24d3b5" stroke-width="3"/></g>
+    <g transform="translate(268)"><rect class="panel" width="248" height="112" rx="13"/><text x="20" y="28" class="label">PEDIDOS</text><text x="20" y="67" class="value">98.742</text><text x="20" y="93" class="positive">▲ 8,3% crescimento</text><circle cx="211" cy="58" r="24" fill="none" stroke="#223b55" stroke-width="7"/><path d="M211 34 A24 24 0 1 1 190 70" fill="none" stroke="#25a6f7" stroke-width="7" stroke-linecap="round"/></g>
+    <g transform="translate(536)"><rect class="panel" width="248" height="112" rx="13"/><text x="20" y="28" class="label">TICKET MÉDIO</text><text x="20" y="67" class="value">R$ 166,08</text><text x="20" y="93" class="positive">▲ 4,1% eficiência comercial</text><rect x="192" y="36" width="39" height="39" rx="10" fill="#153d51"/><text x="204" y="63" font-family="Segoe UI" font-size="22" fill="#62e4cf">↗</text></g>
+    <g transform="translate(804)"><rect class="panel" width="248" height="112" rx="13"/><text x="20" y="28" class="label">ENTREGA NO PRAZO</text><text x="20" y="67" class="value">87,6%</text><text x="20" y="93" class="negative">▼ 1,9 p.p. sob a meta</text><rect x="195" y="35" width="36" height="45" rx="7" fill="#14304a"/><path d="M202 49h22M202 59h16M202 69h19" stroke="#ffbd66" stroke-width="3" stroke-linecap="round"/></g>
+    <g transform="translate(1072)"><rect class="panel" width="272" height="112" rx="13"/><text x="20" y="28" class="label">AVALIAÇÃO MÉDIA</text><text x="20" y="67" class="value">4,18 / 5</text><text x="20" y="93" class="positive">▲ 0,12 satisfação</text><text x="176" y="66" font-family="Segoe UI" font-size="22" fill="#ffd166">★★★★</text><text x="244" y="66" font-family="Segoe UI" font-size="22" fill="#41576c">★</text></g>
+  </g>
+
+  <g transform="translate(48 248)" filter="url(#shadow)">
+    <rect class="panel" width="858" height="284" rx="13"/>
+    <text x="22" y="31" class="chartTitle">GMV por período</text><text x="728" y="31" class="legend">● GMV mensal</text>
+    <g transform="translate(55 58)">
+      <path class="axis" d="M0 0H770M0 48H770M0 96H770M0 144H770M0 192H770" opacity=".65"/>
+      <text x="-42" y="4" class="tick">2,0 mi</text><text x="-42" y="52" class="tick">1,5 mi</text><text x="-42" y="100" class="tick">1,0 mi</text><text x="-42" y="148" class="tick">0,5 mi</text>
+      <path d="M0 170 L70 154 L140 163 L210 127 L280 137 L350 105 L420 114 L490 76 L560 85 L630 47 L700 61 L770 20 L770 192 L0 192Z" fill="url(#area)"/>
+      <path d="M0 170 L70 154 L140 163 L210 127 L280 137 L350 105 L420 114 L490 76 L560 85 L630 47 L700 61 L770 20" fill="none" stroke="#2dd4bf" stroke-width="3.5" stroke-linejoin="round"/>
+      <g fill="#2dd4bf" stroke="#10243a" stroke-width="3"><circle cx="0" cy="170" r="5"/><circle cx="70" cy="154" r="5"/><circle cx="140" cy="163" r="5"/><circle cx="210" cy="127" r="5"/><circle cx="280" cy="137" r="5"/><circle cx="350" cy="105" r="5"/><circle cx="420" cy="114" r="5"/><circle cx="490" cy="76" r="5"/><circle cx="560" cy="85" r="5"/><circle cx="630" cy="47" r="5"/><circle cx="700" cy="61" r="5"/><circle cx="770" cy="20" r="5"/></g>
+      <g class="tick"><text x="-8" y="217">JAN</text><text x="132" y="217">MAR</text><text x="272" y="217">MAI</text><text x="412" y="217">JUL</text><text x="552" y="217">SET</text><text x="692" y="217">NOV</text><text x="755" y="217">DEZ</text></g>
+    </g>
+  </g>
+
+  <g transform="translate(926 248)" filter="url(#shadow)">
+    <rect class="panel" width="466" height="284" rx="13"/>
+    <text x="22" y="31" class="chartTitle">Ranking de sellers por GMV</text><text x="382" y="31" class="small">TOP 5</text>
+    <g transform="translate(22 58)">
+      <g class="label"><text y="22">Seller 8f2a…</text><text y="65">Seller 31bd…</text><text y="108">Seller d94e…</text><text y="151">Seller a17c…</text><text y="194">Seller 02be…</text></g>
+      <g transform="translate(104)"><rect y="7" width="313" height="18" rx="9" fill="#1a3951"/><rect y="7" width="313" height="18" rx="9" fill="#25a6f7"/><rect y="50" width="313" height="18" rx="9" fill="#1a3951"/><rect y="50" width="269" height="18" rx="9" fill="#25a6f7"/><rect y="93" width="313" height="18" rx="9" fill="#1a3951"/><rect y="93" width="223" height="18" rx="9" fill="#25a6f7"/><rect y="136" width="313" height="18" rx="9" fill="#1a3951"/><rect y="136" width="188" height="18" rx="9" fill="#25a6f7"/><rect y="179" width="313" height="18" rx="9" fill="#1a3951"/><rect y="179" width="154" height="18" rx="9" fill="#25a6f7"/></g>
+    </g>
+  </g>
+
+  <g transform="translate(48 554)" filter="url(#shadow)">
+    <rect class="panel" width="658" height="298" rx="13"/>
+    <text x="22" y="31" class="chartTitle">Risco logístico por UF</text><circle cx="469" cy="27" r="5" fill="#ffbd66"/><text x="480" y="31" class="legend">Em risco</text><circle cx="552" cy="27" r="5" fill="#ff657d"/><text x="563" y="31" class="legend">Atrasados</text>
+    <g transform="translate(52 63)">
+      <path class="axis" d="M0 0V184H566"/>
+      <path class="axis" d="M0 46H566M0 92H566M0 138H566" opacity=".55"/>
+      <g fill="#ffbd66"><rect x="28" y="52" width="25" height="132" rx="4"/><rect x="132" y="76" width="25" height="108" rx="4"/><rect x="236" y="97" width="25" height="87" rx="4"/><rect x="340" y="120" width="25" height="64" rx="4"/><rect x="444" y="138" width="25" height="46" rx="4"/></g>
+      <g fill="#ff657d"><rect x="58" y="84" width="25" height="100" rx="4"/><rect x="162" y="103" width="25" height="81" rx="4"/><rect x="266" y="119" width="25" height="65" rx="4"/><rect x="370" y="137" width="25" height="47" rx="4"/><rect x="474" y="150" width="25" height="34" rx="4"/></g>
+      <g class="tick"><text x="43" y="207">SP</text><text x="147" y="207">RJ</text><text x="251" y="207">MG</text><text x="355" y="207">BA</text><text x="459" y="207">PR</text></g>
+    </g>
+  </g>
+
+  <g transform="translate(726 554)" filter="url(#shadow)">
+    <rect class="panel" width="666" height="298" rx="13"/>
+    <text x="22" y="31" class="chartTitle">Conversão por origem de tráfego</text><text x="539" y="31" class="small">SESSÃO → COMPRA</text>
+    <g transform="translate(52 62)">
+      <path class="axis" d="M0 0V184H574"/>
+      <path class="axis" d="M0 46H574M0 92H574M0 138H574" opacity=".55"/>
+      <g fill="url(#accent)"><rect x="31" y="31" width="58" height="153" rx="7"/><rect x="145" y="57" width="58" height="127" rx="7"/><rect x="259" y="80" width="58" height="104" rx="7"/><rect x="373" y="107" width="58" height="77" rx="7"/><rect x="487" y="127" width="58" height="57" rx="7"/></g>
+      <g class="positive"><text x="42" y="22">5,9%</text><text x="156" y="48">4,9%</text><text x="270" y="71">4,0%</text><text x="384" y="98">3,0%</text><text x="498" y="118">2,2%</text></g>
+      <g class="tick"><text x="38" y="207">Direto</text><text x="148" y="207">Busca</text><text x="261" y="207">E-mail</text><text x="364" y="207">Social</text><text x="479" y="207">Afiliados</text></g>
+    </g>
+  </g>
+
+  <text x="48" y="881" class="small">PRÉVIA DE LAYOUT • DADOS ILUSTRATIVOS • MODELO REAL: FABRIC WAREHOUSE + DBT + POWER BI DIRECT LAKE</text>
+</svg>

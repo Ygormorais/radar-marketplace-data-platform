@@ -1,0 +1,104 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "VisualSessionsDevice01",
+  "position": {
+    "x": 656,
+    "y": 194,
+    "z": 4000,
+    "height": 240,
+    "width": 600,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mart_funnel_conversion"
+                    }
+                  },
+                  "Property": "device_type"
+                }
+              },
+              "queryRef": "mart_funnel_conversion.device_type",
+              "nativeQueryRef": "device_type"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mart_funnel_conversion"
+                    }
+                  },
+                  "Property": "Sessões"
+                }
+              },
+              "queryRef": "mart_funnel_conversion.Sessões",
+              "nativeQueryRef": "Sessões"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mart_funnel_conversion"
+                    }
+                  },
+                  "Property": "Compras"
+                }
+              },
+              "queryRef": "mart_funnel_conversion.Compras",
+              "nativeQueryRef": "Compras"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Sessões e compras por dispositivo'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

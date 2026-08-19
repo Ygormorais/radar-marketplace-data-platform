@@ -1,0 +1,45 @@
+table dim_date
+	lineageTag: c9da867d-324a-4698-8078-aae5ff8a98af
+
+	column date_key
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column full_date
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		summarizeBy: none
+		sourceColumn: full_date
+
+	column calendar_year
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: calendar_year
+
+	column calendar_quarter
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: calendar_quarter
+
+	column calendar_month
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: calendar_month
+
+	column is_weekend
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: is_weekend
+
+	partition dim_date = entity
+		mode: directLake
+		source
+			entityName: dim_date
+			schemaName: gold
+			expressionSource: DatabaseQuery
+

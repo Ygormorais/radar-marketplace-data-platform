@@ -1,0 +1,93 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "VisualKpiFunnel000001",
+  "position": {
+    "x": 24,
+    "y": 82,
+    "z": 2000,
+    "height": 94,
+    "width": 1232,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mart_funnel_conversion"
+                    }
+                  },
+                  "Property": "Sessões"
+                }
+              },
+              "queryRef": "mart_funnel_conversion.Sessões",
+              "nativeQueryRef": "Sessões"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mart_funnel_conversion"
+                    }
+                  },
+                  "Property": "Compras"
+                }
+              },
+              "queryRef": "mart_funnel_conversion.Compras",
+              "nativeQueryRef": "Compras"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mart_funnel_conversion"
+                    }
+                  },
+                  "Property": "Conversão %"
+                }
+              },
+              "queryRef": "mart_funnel_conversion.Conversão %",
+              "nativeQueryRef": "Conversão %"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

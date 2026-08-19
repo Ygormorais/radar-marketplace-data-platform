@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://radar.local/contracts/events/delivery_event.v1.schema.json",
+  "title": "DeliveryEventV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "event_id",
+    "order_id",
+    "status",
+    "occurred_at",
+    "produced_at",
+    "location_state",
+    "carrier_code",
+    "sequence_number",
+    "attributes"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "event_id": { "type": "string", "format": "uuid" },
+    "order_id": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "status": {
+      "enum": [
+        "created",
+        "approved",
+        "invoiced",
+        "shipped",
+        "in_transit",
+        "out_for_delivery",
+        "delivered",
+        "exception"
+      ]
+    },
+    "occurred_at": { "type": "string", "format": "date-time" },
+    "produced_at": { "type": "string", "format": "date-time" },
+    "location_state": { "type": "string", "pattern": "^[A-Z]{2}$" },
+    "carrier_code": { "type": "string", "minLength": 2, "maxLength": 32 },
+    "sequence_number": { "type": "integer", "minimum": 1 },
+    "attributes": { "type": "object" }
+  }
+}
+

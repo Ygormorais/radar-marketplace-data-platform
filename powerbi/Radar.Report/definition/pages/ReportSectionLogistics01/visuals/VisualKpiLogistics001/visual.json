@@ -1,0 +1,93 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "VisualKpiLogistics001",
+  "position": {
+    "x": 24,
+    "y": 82,
+    "z": 2000,
+    "height": 94,
+    "width": 1232,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mart_delivery_sla"
+                    }
+                  },
+                  "Property": "Pedidos em risco"
+                }
+              },
+              "queryRef": "mart_delivery_sla.Pedidos em risco",
+              "nativeQueryRef": "Pedidos em risco"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mart_delivery_sla"
+                    }
+                  },
+                  "Property": "Pedidos atrasados"
+                }
+              },
+              "queryRef": "mart_delivery_sla.Pedidos atrasados",
+              "nativeQueryRef": "Pedidos atrasados"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mart_delivery_sla"
+                    }
+                  },
+                  "Property": "Atraso médio (dias)"
+                }
+              },
+              "queryRef": "mart_delivery_sla.Atraso médio (dias)",
+              "nativeQueryRef": "Atraso médio (dias)"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

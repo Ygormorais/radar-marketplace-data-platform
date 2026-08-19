@@ -1,0 +1,59 @@
+table mart_delivery_sla
+	lineageTag: c5f3c49b-92c3-40d5-aed1-39b8452686b1
+
+	measure 'Pedidos em risco' = SUM(mart_delivery_sla[at_risk_order_count])
+		formatString: #,0
+
+	measure 'Pedidos atrasados' = SUM(mart_delivery_sla[late_order_count])
+		formatString: #,0
+
+	measure 'Atraso médio (dias)' = AVERAGE(mart_delivery_sla[average_delivery_delay_days])
+		formatString: 0.00
+
+	column date_key
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column carrier_code
+		dataType: string
+		summarizeBy: none
+		sourceColumn: carrier_code
+
+	column location_state
+		dataType: string
+		summarizeBy: none
+		sourceColumn: location_state
+
+	column order_count
+		dataType: int64
+		formatString: #,0
+		summarizeBy: sum
+		sourceColumn: order_count
+
+	column at_risk_order_count
+		dataType: int64
+		formatString: #,0
+		summarizeBy: sum
+		sourceColumn: at_risk_order_count
+
+	column late_order_count
+		dataType: int64
+		formatString: #,0
+		summarizeBy: sum
+		sourceColumn: late_order_count
+
+	column average_delivery_delay_days
+		dataType: decimal
+		formatString: 0.00
+		summarizeBy: average
+		sourceColumn: average_delivery_delay_days
+
+	partition mart_delivery_sla = entity
+		mode: directLake
+		source
+			entityName: mart_delivery_sla
+			schemaName: mart
+			expressionSource: DatabaseQuery
+

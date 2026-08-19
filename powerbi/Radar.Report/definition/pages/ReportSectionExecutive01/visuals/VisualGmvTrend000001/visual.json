@@ -1,0 +1,48 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "VisualGmvTrend000001",
+  "position": {
+    "x": 24,
+    "y": 194,
+    "z": 3000,
+    "height": 242,
+    "width": 790,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "dim_date"}}, "Property": "full_date"}},
+              "queryRef": "dim_date.full_date",
+              "nativeQueryRef": "full_date"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {"Measure": {"Expression": {"SourceRef": {"Entity": "mart_executive_daily"}}, "Property": "GMV"}},
+              "queryRef": "mart_executive_daily.GMV",
+              "nativeQueryRef": "GMV"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {"expr": {"Literal": {"Value": "true"}}},
+            "text": {"expr": {"Literal": {"Value": "'GMV por período'"}}}
+          }
+        }
+      ],
+      "border": [{"properties": {"show": {"expr": {"Literal": {"Value": "true"}}}}}]
+    }
+  }
+}

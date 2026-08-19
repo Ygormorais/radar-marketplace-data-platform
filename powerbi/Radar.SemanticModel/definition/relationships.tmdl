@@ -1,0 +1,16 @@
+relationship rel_date_executive
+	fromColumn: mart_executive_daily.date_key
+	toColumn: dim_date.date_key
+
+relationship rel_date_delivery
+	fromColumn: mart_delivery_sla.date_key
+	toColumn: dim_date.date_key
+
+relationship rel_date_funnel
+	fromColumn: mart_funnel_conversion.date_key
+	toColumn: dim_date.date_key
+
+relationship rel_seller_scorecard
+	fromColumn: mart_seller_scorecard.seller_key
+	toColumn: dim_seller.seller_key
+

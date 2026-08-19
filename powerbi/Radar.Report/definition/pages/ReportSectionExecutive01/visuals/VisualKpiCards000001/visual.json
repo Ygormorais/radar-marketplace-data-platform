@@ -1,0 +1,64 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "VisualKpiCards000001",
+  "position": {
+    "x": 24,
+    "y": 82,
+    "z": 2000,
+    "height": 94,
+    "width": 1232,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {"Measure": {"Expression": {"SourceRef": {"Entity": "mart_executive_daily"}}, "Property": "GMV"}},
+              "queryRef": "mart_executive_daily.GMV",
+              "nativeQueryRef": "GMV"
+            },
+            {
+              "field": {"Measure": {"Expression": {"SourceRef": {"Entity": "mart_executive_daily"}}, "Property": "Pedidos"}},
+              "queryRef": "mart_executive_daily.Pedidos",
+              "nativeQueryRef": "Pedidos"
+            },
+            {
+              "field": {"Measure": {"Expression": {"SourceRef": {"Entity": "mart_executive_daily"}}, "Property": "Ticket médio"}},
+              "queryRef": "mart_executive_daily.Ticket médio",
+              "nativeQueryRef": "Ticket médio"
+            },
+            {
+              "field": {"Measure": {"Expression": {"SourceRef": {"Entity": "mart_executive_daily"}}, "Property": "Entrega no prazo %"}},
+              "queryRef": "mart_executive_daily.Entrega no prazo %",
+              "nativeQueryRef": "Entrega no prazo %"
+            },
+            {
+              "field": {"Measure": {"Expression": {"SourceRef": {"Entity": "mart_executive_daily"}}, "Property": "Avaliação média"}},
+              "queryRef": "mart_executive_daily.Avaliação média",
+              "nativeQueryRef": "Avaliação média"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {"expr": {"Literal": {"Value": "false"}}}
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {"expr": {"Literal": {"Value": "true"}}}
+          }
+        }
+      ]
+    }
+  }
+}

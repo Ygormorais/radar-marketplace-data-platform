@@ -1,0 +1,53 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "VisualDeliveryRisk001",
+  "position": {
+    "x": 24,
+    "y": 456,
+    "z": 5000,
+    "height": 240,
+    "width": 610,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "mart_delivery_sla"}}, "Property": "location_state"}},
+              "queryRef": "mart_delivery_sla.location_state",
+              "nativeQueryRef": "location_state"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {"Measure": {"Expression": {"SourceRef": {"Entity": "mart_delivery_sla"}}, "Property": "Pedidos em risco"}},
+              "queryRef": "mart_delivery_sla.Pedidos em risco",
+              "nativeQueryRef": "Pedidos em risco"
+            },
+            {
+              "field": {"Measure": {"Expression": {"SourceRef": {"Entity": "mart_delivery_sla"}}, "Property": "Pedidos atrasados"}},
+              "queryRef": "mart_delivery_sla.Pedidos atrasados",
+              "nativeQueryRef": "Pedidos atrasados"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {"expr": {"Literal": {"Value": "true"}}},
+            "text": {"expr": {"Literal": {"Value": "'Risco logístico por UF'"}}}
+          }
+        }
+      ],
+      "border": [{"properties": {"show": {"expr": {"Literal": {"Value": "true"}}}}}]
+    }
+  }
+}

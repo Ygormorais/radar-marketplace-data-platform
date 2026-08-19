@@ -1,0 +1,5 @@
+environment: test
+
+generator:
+  default_order_count: 100000
+

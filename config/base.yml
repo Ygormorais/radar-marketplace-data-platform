@@ -1,0 +1,32 @@
+project:
+  name: radar
+  timezone: America/Sao_Paulo
+  schema_version: "1.0.0"
+
+storage:
+  landing_root: Files/landing
+  bronze_database: lh_bronze
+  silver_database: lh_silver
+  gold_database: wh_gold
+  checkpoint_root: Files/checkpoints
+
+streaming:
+  bootstrap_servers: localhost:19092
+  topic: delivery-events-v1
+  consumer_group: radar-bronze-v1
+  checkpoint_interval_seconds: 30
+  watermark_delay: 2 hours
+
+generator:
+  seed: 20260818
+  events_per_second: 20
+  duplicate_rate: 0.02
+  late_event_rate: 0.03
+  invalid_event_rate: 0.005
+  default_order_count: 1000
+
+quality:
+  max_quarantine_rate: 0.01
+  max_duplicate_rate: 0.05
+  freshness_minutes: 30
+

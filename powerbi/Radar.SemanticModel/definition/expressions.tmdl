@@ -1,0 +1,12 @@
+expression DatabaseQuery =
+		let
+			Source = Sql.Database(
+				"00000000-0000-0000-0000-000000000000.datawarehouse.fabric.microsoft.com",
+				"wh_gold",
+				[CreateNavigationProperties = false]
+			)
+		in
+			Source
+	lineageTag: 812a719e-7c2e-4c88-937e-762453cfe22e
+	annotation PBI_ResultType = Table
+

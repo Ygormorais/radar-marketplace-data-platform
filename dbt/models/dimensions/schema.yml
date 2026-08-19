@@ -1,0 +1,45 @@
+version: 2
+
+models:
+  - name: dim_date
+    description: Calendário denso independente da existência de pedidos.
+    columns:
+      - name: date_key
+        data_tests: [not_null, unique]
+  - name: dim_customer
+    columns:
+      - name: customer_key
+        data_tests: [not_null, unique]
+      - name: customer_unique_id
+        data_tests: [not_null]
+  - name: dim_seller
+    columns:
+      - name: seller_key
+        data_tests: [not_null, unique]
+  - name: dim_product
+    columns:
+      - name: product_key
+        data_tests: [not_null, unique]
+      - name: category_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_category')
+                field: category_key
+  - name: dim_category
+    columns:
+      - name: category_key
+        data_tests: [not_null, unique]
+  - name: dim_geography
+    columns:
+      - name: geography_key
+        data_tests: [not_null, unique]
+  - name: dim_order_status
+    columns:
+      - name: order_status_key
+        data_tests: [not_null, unique]
+  - name: bridge_category_hierarchy
+    data_tests:
+      - unique:
+          arguments:
+            column_name: "concat(ancestor_category_key, '|', descendant_category_key)"

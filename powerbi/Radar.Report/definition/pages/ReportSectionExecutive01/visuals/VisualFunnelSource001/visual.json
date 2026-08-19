@@ -1,0 +1,48 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "VisualFunnelSource001",
+  "position": {
+    "x": 656,
+    "y": 456,
+    "z": 6000,
+    "height": 240,
+    "width": 600,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "mart_funnel_conversion"}}, "Property": "traffic_source"}},
+              "queryRef": "mart_funnel_conversion.traffic_source",
+              "nativeQueryRef": "traffic_source"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {"Measure": {"Expression": {"SourceRef": {"Entity": "mart_funnel_conversion"}}, "Property": "Conversão %"}},
+              "queryRef": "mart_funnel_conversion.Conversão %",
+              "nativeQueryRef": "Conversão %"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {"expr": {"Literal": {"Value": "true"}}},
+            "text": {"expr": {"Literal": {"Value": "'Conversão por origem de tráfego'"}}}
+          }
+        }
+      ],
+      "border": [{"properties": {"show": {"expr": {"Literal": {"Value": "true"}}}}}]
+    }
+  }
+}

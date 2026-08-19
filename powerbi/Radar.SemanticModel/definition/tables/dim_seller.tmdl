@@ -1,0 +1,36 @@
+table dim_seller
+	lineageTag: 4b1ae614-e39a-49bb-92c4-6ec57149153d
+
+	column seller_key
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: seller_key
+
+	column seller_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: seller_id
+
+	column city
+		dataType: string
+		summarizeBy: none
+		sourceColumn: city
+
+	column state
+		dataType: string
+		summarizeBy: none
+		sourceColumn: state
+
+	column is_current
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: is_current
+
+	partition dim_seller = entity
+		mode: directLake
+		source
+			entityName: dim_seller
+			schemaName: gold
+			expressionSource: DatabaseQuery
+

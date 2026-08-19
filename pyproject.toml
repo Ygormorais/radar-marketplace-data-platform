@@ -1,0 +1,92 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "radar"
+version = "0.1.0"
+description = "Plataforma de engenharia de dados para e-commerce baseada em Microsoft Fabric."
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+license = { text = "MIT" }
+authors = [{ name = "Ygor" }]
+dependencies = [
+  "httpx>=0.28,<1",
+  "pydantic>=2.11,<3",
+  "PyYAML>=6.0,<7",
+  "tenacity>=9.1,<10",
+]
+
+[project.optional-dependencies]
+streaming = ["confluent-kafka>=2.10,<3"]
+spark = ["delta-spark>=3.3,<4", "pyspark>=3.5,<3.6"]
+dbt = [
+  "dbt-core>=1.9,<2",
+  "dbt-fabric>=1.9,<2",
+  "sqlfluff>=3.4,<4",
+  "sqlfluff-templater-dbt>=3.4,<4",
+]
+web-export = ["duckdb>=1.5,<2"]
+dev = [
+  "jsonschema>=4.25,<5",
+  "mypy>=1.17,<2",
+  "pytest>=8.4,<9",
+  "pytest-cov>=6.2,<7",
+  "respx>=0.22,<1",
+  "ruff>=0.12,<1",
+  "types-jsonschema>=4.25,<5",
+  "types-PyYAML>=6.0,<7",
+]
+
+[project.scripts]
+radar-generate = "radar.generators.delivery_events:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/radar"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-config --strict-markers"
+testpaths = ["tests"]
+markers = [
+  "integration: requer dependências externas ou runtime Spark",
+  "contract: valida contratos publicados",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["radar"]
+omit = [
+  "*/radar/bronze/*",
+  "*/radar/generators/spark_events.py",
+  "*/radar/silver/merge.py",
+  "*/radar/silver/reconciliation.py",
+  "*/radar/silver/sessionization.py",
+  "*/radar/silver/transforms.py",
+  "*/radar/quality/expectations.py",
+]
+
+[tool.coverage.report]
+fail_under = 85
+show_missing = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "RUF", "S", "C4", "DTZ"]
+ignore = ["S101"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "S108"]
+"fabric/notebooks/**/notebook-content.py" = ["E402", "F821"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["radar"]
+warn_unreachable = true
+
+[[tool.mypy.overrides]]
+module = ["delta.*", "duckdb.*", "pyspark.*"]
+ignore_missing_imports = true

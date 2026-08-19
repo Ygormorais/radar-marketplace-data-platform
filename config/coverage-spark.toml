@@ -1,0 +1,13 @@
+[run]
+branch = true
+source = [
+    "radar.bronze",
+    "radar.generators.spark_events",
+    "radar.observability.audit",
+    "radar.silver",
+    "radar.quality",
+]
+
+[report]
+fail_under = 60
+show_missing = true

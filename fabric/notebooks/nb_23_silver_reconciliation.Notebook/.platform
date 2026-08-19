@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_23_silver_reconciliation",
+    "description": "Reconciliação de itens, frete e pagamentos por pedido."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "b7e50f2b-f092-4463-aef1-1ea211810ba5"
+  }
+}

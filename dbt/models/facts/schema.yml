@@ -1,0 +1,56 @@
+version: 2
+
+models:
+  - name: fct_order_item
+    description: Fato transacional no grão de item de pedido.
+    columns:
+      - name: order_item_key
+        data_tests: [not_null, unique]
+      - name: customer_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_customer')
+                field: customer_key
+      - name: seller_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_seller')
+                field: seller_key
+      - name: product_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_product')
+                field: product_key
+      - name: purchase_date_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+  - name: fct_payment
+    columns:
+      - name: payment_key
+        data_tests: [not_null, unique]
+  - name: fct_delivery
+    columns:
+      - name: delivery_key
+        data_tests: [not_null, unique]
+      - name: order_id
+        data_tests: [not_null, unique]
+  - name: fct_review
+    columns:
+      - name: review_key
+        data_tests: [not_null, unique]
+  - name: fct_funnel_session
+    columns:
+      - name: session_key
+        data_tests: [not_null, unique]
+  - name: fct_order_reconciliation
+    columns:
+      - name: reconciliation_key
+        data_tests: [not_null, unique]
+      - name: order_id
+        data_tests: [not_null, unique]

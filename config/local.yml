@@ -1,0 +1,9 @@
+environment: local
+
+storage:
+  landing_root: data/raw/landing
+  bronze_database: data/local/bronze
+  silver_database: data/local/silver
+  gold_database: data/local/gold.duckdb
+  checkpoint_root: data/local/checkpoints
+

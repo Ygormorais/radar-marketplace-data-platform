@@ -1,0 +1,127 @@
+{
+  "properties": {
+    "description": "Pipeline batch autoritativo do Radar: Bronze, Silver e quality gate.",
+    "parameters": {
+      "environment": { "type": "string", "defaultValue": "dev" },
+      "landing_manifest_path": { "type": "string", "defaultValue": "Files/landing/olist/v1/_manifest.json" }
+    },
+    "activities": [
+      {
+        "name": "Prepare Run",
+        "type": "TridentNotebook",
+        "dependsOn": [],
+        "policy": { "timeout": "0.00:20:00", "retry": 1, "retryIntervalInSeconds": 30, "secureInput": false, "secureOutput": false },
+        "typeProperties": {
+          "notebookId": "{{item:Notebook:nb_05_prepare_run}}",
+          "workspaceId": "{{workspace_id}}",
+          "sessionTag": "radar-batch",
+          "parameters": {
+            "environment": { "value": "@pipeline().parameters.environment", "type": "Expression" },
+            "run_id": { "value": "@pipeline().RunId", "type": "Expression" },
+            "manifest_path": { "value": "@pipeline().parameters.landing_manifest_path", "type": "Expression" }
+          }
+        }
+      },
+      {
+        "name": "Bronze Olist",
+        "type": "TridentNotebook",
+        "dependsOn": [{ "activity": "Prepare Run", "dependencyConditions": ["Succeeded"] }],
+        "policy": { "timeout": "0.02:00:00", "retry": 2, "retryIntervalInSeconds": 60, "secureInput": false, "secureOutput": false },
+        "typeProperties": {
+          "notebookId": "{{item:Notebook:nb_10_bronze_batch}}",
+          "workspaceId": "{{workspace_id}}",
+          "sessionTag": "radar-batch",
+          "parameters": {
+            "environment": { "value": "@pipeline().parameters.environment", "type": "Expression" },
+            "run_id": { "value": "@pipeline().RunId", "type": "Expression" },
+            "source_hashes_json": { "value": "@activity('Prepare Run').output.result.exitValue", "type": "Expression" }
+          }
+        }
+      },
+      {
+        "name": "Silver Commerce",
+        "type": "TridentNotebook",
+        "dependsOn": [{ "activity": "Bronze Olist", "dependencyConditions": ["Succeeded"] }],
+        "policy": { "timeout": "0.03:00:00", "retry": 1, "retryIntervalInSeconds": 90, "secureInput": false, "secureOutput": false },
+        "typeProperties": {
+          "notebookId": "{{item:Notebook:nb_20_silver_commerce}}",
+          "workspaceId": "{{workspace_id}}",
+          "sessionTag": "radar-batch",
+          "parameters": { "run_id": { "value": "@pipeline().RunId", "type": "Expression" } }
+        }
+      },
+      {
+        "name": "Silver Logistics",
+        "type": "TridentNotebook",
+        "dependsOn": [{ "activity": "Silver Commerce", "dependencyConditions": ["Succeeded"] }],
+        "policy": { "timeout": "0.02:00:00", "retry": 1, "retryIntervalInSeconds": 90, "secureInput": false, "secureOutput": false },
+        "typeProperties": {
+          "notebookId": "{{item:Notebook:nb_21_silver_logistics}}",
+          "workspaceId": "{{workspace_id}}",
+          "sessionTag": "radar-batch",
+          "parameters": { "run_id": { "value": "@pipeline().RunId", "type": "Expression" } }
+        }
+      },
+      {
+        "name": "Silver Reconciliation",
+        "type": "TridentNotebook",
+        "dependsOn": [{ "activity": "Silver Commerce", "dependencyConditions": ["Succeeded"] }],
+        "policy": { "timeout": "0.02:00:00", "retry": 1, "retryIntervalInSeconds": 90, "secureInput": false, "secureOutput": false },
+        "typeProperties": {
+          "notebookId": "{{item:Notebook:nb_23_silver_reconciliation}}",
+          "workspaceId": "{{workspace_id}}",
+          "sessionTag": "radar-batch",
+          "parameters": { "run_id": { "value": "@pipeline().RunId", "type": "Expression" } }
+        }
+      },
+      {
+        "name": "Quality Gate",
+        "type": "TridentNotebook",
+        "dependsOn": [
+          { "activity": "Silver Logistics", "dependencyConditions": ["Succeeded"] },
+          { "activity": "Silver Reconciliation", "dependencyConditions": ["Succeeded"] }
+        ],
+        "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30, "secureInput": false, "secureOutput": false },
+        "typeProperties": {
+          "notebookId": "{{item:Notebook:nb_30_quality_gate}}",
+          "workspaceId": "{{workspace_id}}",
+          "sessionTag": "radar-batch",
+          "parameters": { "run_id": { "value": "@pipeline().RunId", "type": "Expression" } }
+        }
+      },
+      {
+        "name": "Build Gold with dbt",
+        "type": "TridentNotebook",
+        "dependsOn": [{ "activity": "Quality Gate", "dependencyConditions": ["Succeeded"] }],
+        "policy": { "timeout": "0.02:00:00", "retry": 0, "retryIntervalInSeconds": 30, "secureInput": false, "secureOutput": false },
+        "typeProperties": {
+          "notebookId": "{{item:Notebook:nb_31_dbt_serving}}",
+          "workspaceId": "{{workspace_id}}",
+          "sessionTag": "radar-serving",
+          "parameters": {
+            "run_id": { "value": "@pipeline().RunId", "type": "Expression" },
+            "target": { "value": "@pipeline().parameters.environment", "type": "Expression" }
+          }
+        }
+      },
+      {
+        "name": "Refresh Radar Semantic Model",
+        "type": "PBISemanticModelRefresh",
+        "dependsOn": [{ "activity": "Build Gold with dbt", "dependencyConditions": ["Succeeded"] }],
+        "policy": { "timeout": "0.01:00:00", "retry": 1, "retryIntervalInSeconds": 60, "secureInput": false, "secureOutput": false },
+        "typeProperties": {
+          "method": "POST",
+          "groupId": "{{workspace_id}}",
+          "datasetId": "{{item:SemanticModel:Radar}}",
+          "type": "Full",
+          "commitMode": "transactional",
+          "maxParallelism": 4,
+          "retryCount": 1,
+          "waitOnCompletion": true,
+          "operationType": "RefreshDataset"
+        },
+        "externalReferences": { "connection": "{{connection:powerbi}}" }
+      }
+    ]
+  }
+}

@@ -1,0 +1,47 @@
+table mart_funnel_conversion
+	lineageTag: e0b0e236-2d18-45ce-b5bc-ec41591e74f0
+
+	measure Sessões = SUM(mart_funnel_conversion[session_count])
+		formatString: #,0
+
+	measure Compras = SUM(mart_funnel_conversion[purchase_sessions])
+		formatString: #,0
+
+	measure 'Conversão %' = DIVIDE([Compras], [Sessões])
+		formatString: 0.0%;-0.0%;0.0%
+
+	column date_key
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column device_type
+		dataType: string
+		summarizeBy: none
+		sourceColumn: device_type
+
+	column traffic_source
+		dataType: string
+		summarizeBy: none
+		sourceColumn: traffic_source
+
+	column session_count
+		dataType: int64
+		formatString: #,0
+		summarizeBy: sum
+		sourceColumn: session_count
+
+	column purchase_sessions
+		dataType: int64
+		formatString: #,0
+		summarizeBy: sum
+		sourceColumn: purchase_sessions
+
+	partition mart_funnel_conversion = entity
+		mode: directLake
+		source
+			entityName: mart_funnel_conversion
+			schemaName: mart
+			expressionSource: DatabaseQuery
+

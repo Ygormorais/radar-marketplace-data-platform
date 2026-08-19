@@ -1,0 +1,79 @@
+table mart_executive_daily
+	lineageTag: d7105950-eb8d-4b56-ad31-7826057ebd51
+
+	measure GMV = SUM(mart_executive_daily[gmv])
+		formatString: "R$ #,0.00;\"-R$ #,0.00\";R$ #,0.00"
+
+	measure Pedidos = SUM(mart_executive_daily[order_count])
+		formatString: #,0
+
+	measure 'Ticket médio' = DIVIDE([GMV], [Pedidos])
+		formatString: "R$ #,0.00;\"-R$ #,0.00\";R$ #,0.00"
+
+	measure 'Entrega no prazo %' = DIVIDE(SUM(mart_executive_daily[on_time_order_count]), SUM(mart_executive_daily[delivered_order_count]))
+		formatString: 0.0%;-0.0%;0.0%
+
+	measure 'Taxa de falha %' = DIVIDE(SUM(mart_executive_daily[failed_order_count]), [Pedidos])
+		formatString: 0.0%;-0.0%;0.0%
+
+	measure 'Avaliação média' = AVERAGE(mart_executive_daily[average_review_score])
+		formatString: 0.00
+
+	measure 'GMV acumulado' = CALCULATE([GMV], FILTER(ALLSELECTED(dim_date[full_date]), dim_date[full_date] <= MAX(dim_date[full_date])))
+		formatString: "R$ #,0.00;\"-R$ #,0.00\";R$ #,0.00"
+
+	column date_key
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column full_date
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		summarizeBy: none
+		sourceColumn: full_date
+
+	column order_count
+		dataType: int64
+		formatString: #,0
+		summarizeBy: sum
+		sourceColumn: order_count
+
+	column gmv
+		dataType: decimal
+		formatString: "R$ #,0.00"
+		summarizeBy: sum
+		sourceColumn: gmv
+
+	column delivered_order_count
+		dataType: int64
+		formatString: #,0
+		summarizeBy: sum
+		sourceColumn: delivered_order_count
+
+	column failed_order_count
+		dataType: int64
+		formatString: #,0
+		summarizeBy: sum
+		sourceColumn: failed_order_count
+
+	column on_time_order_count
+		dataType: int64
+		formatString: #,0
+		summarizeBy: sum
+		sourceColumn: on_time_order_count
+
+	column average_review_score
+		dataType: decimal
+		formatString: 0.00
+		summarizeBy: average
+		sourceColumn: average_review_score
+
+	partition mart_executive_daily = entity
+		mode: directLake
+		source
+			entityName: mart_executive_daily
+			schemaName: mart
+			expressionSource: DatabaseQuery
+

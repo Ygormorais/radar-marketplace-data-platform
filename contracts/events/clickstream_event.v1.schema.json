@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://radar.local/contracts/events/clickstream_event.v1.schema.json",
+  "title": "ClickstreamEventV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "event_id", "user_id", "event_type", "occurred_at"],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "event_id": { "type": "string", "format": "uuid" },
+    "user_id": { "type": "string", "minLength": 1 },
+    "anonymous_id": { "type": ["string", "null"] },
+    "session_source_id": { "type": ["string", "null"] },
+    "event_type": {
+      "enum": ["page_view", "product_view", "add_to_cart", "checkout", "purchase"]
+    },
+    "occurred_at": { "type": "string", "format": "date-time" },
+    "product_id": { "type": ["string", "null"] },
+    "order_id": { "type": ["string", "null"] },
+    "device_type": { "type": ["string", "null"] },
+    "traffic_source": { "type": ["string", "null"] }
+  }
+}
+

@@ -1,0 +1,24 @@
+version: 2
+
+sources:
+  - name: silver
+    description: Entidades conformadas no Lakehouse Silver, acessadas no mesmo workspace Fabric.
+    database: "{{ var('silver_database') }}"
+    schema: dbo
+    tables:
+      - name: silver_orders
+        loaded_at_field: _ingested_at
+        freshness:
+          warn_after: {count: 24, period: hour}
+          error_after: {count: 48, period: hour}
+      - name: silver_customers
+      - name: silver_customers_history
+      - name: silver_sellers_history
+      - name: silver_products_history
+      - name: silver_geography
+      - name: silver_order_items
+      - name: silver_payments
+      - name: silver_reviews
+      - name: silver_financial_reconciliation
+      - name: silver_delivery_snapshot
+      - name: silver_clickstream_sessions

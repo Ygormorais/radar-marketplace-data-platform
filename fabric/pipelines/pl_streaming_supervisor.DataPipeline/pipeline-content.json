@@ -1,0 +1,85 @@
+{
+  "properties": {
+    "description": "Supervisor near-real-time do Radar com checkpoints, Silver e health checks.",
+    "parameters": {
+      "bootstrap_servers": { "type": "string", "defaultValue": "localhost:19092" },
+      "starting_offsets": { "type": "string", "defaultValue": "latest" },
+      "trigger_mode": { "type": "string", "defaultValue": "available_now" }
+    },
+    "activities": [
+      {
+        "name": "Ingest Delivery Events",
+        "type": "TridentNotebook",
+        "dependsOn": [],
+        "policy": { "timeout": "0.01:00:00", "retry": 2, "retryIntervalInSeconds": 30, "secureInput": false, "secureOutput": false },
+        "typeProperties": {
+          "notebookId": "{{item:Notebook:nb_11_bronze_stream}}",
+          "workspaceId": "{{workspace_id}}",
+          "sessionTag": "radar-streaming",
+          "parameters": {
+            "run_id": { "value": "@pipeline().RunId", "type": "Expression" },
+            "bootstrap_servers": { "value": "@pipeline().parameters.bootstrap_servers", "type": "Expression" },
+            "starting_offsets": { "value": "@pipeline().parameters.starting_offsets", "type": "Expression" },
+            "trigger_mode": { "value": "@pipeline().parameters.trigger_mode", "type": "Expression" }
+          }
+        }
+      },
+      {
+        "name": "Ingest Clickstream",
+        "type": "TridentNotebook",
+        "dependsOn": [],
+        "policy": { "timeout": "0.01:00:00", "retry": 2, "retryIntervalInSeconds": 30, "secureInput": false, "secureOutput": false },
+        "typeProperties": {
+          "notebookId": "{{item:Notebook:nb_13_bronze_clickstream}}",
+          "workspaceId": "{{workspace_id}}",
+          "sessionTag": "radar-streaming",
+          "parameters": {
+            "run_id": { "value": "@pipeline().RunId", "type": "Expression" },
+            "bootstrap_servers": { "value": "@pipeline().parameters.bootstrap_servers", "type": "Expression" },
+            "starting_offsets": { "value": "@pipeline().parameters.starting_offsets", "type": "Expression" },
+            "trigger_mode": { "value": "@pipeline().parameters.trigger_mode", "type": "Expression" }
+          }
+        }
+      },
+      {
+        "name": "Silver Delivery State",
+        "type": "TridentNotebook",
+        "dependsOn": [{ "activity": "Ingest Delivery Events", "dependencyConditions": ["Succeeded"] }],
+        "policy": { "timeout": "0.01:00:00", "retry": 1, "retryIntervalInSeconds": 30, "secureInput": false, "secureOutput": false },
+        "typeProperties": {
+          "notebookId": "{{item:Notebook:nb_21_silver_logistics}}",
+          "workspaceId": "{{workspace_id}}",
+          "sessionTag": "radar-streaming",
+          "parameters": { "run_id": { "value": "@pipeline().RunId", "type": "Expression" } }
+        }
+      },
+      {
+        "name": "Silver Clickstream Sessions",
+        "type": "TridentNotebook",
+        "dependsOn": [{ "activity": "Ingest Clickstream", "dependencyConditions": ["Succeeded"] }],
+        "policy": { "timeout": "0.01:00:00", "retry": 1, "retryIntervalInSeconds": 30, "secureInput": false, "secureOutput": false },
+        "typeProperties": {
+          "notebookId": "{{item:Notebook:nb_22_silver_clickstream}}",
+          "workspaceId": "{{workspace_id}}",
+          "sessionTag": "radar-streaming",
+          "parameters": {}
+        }
+      },
+      {
+        "name": "Operational Health",
+        "type": "TridentNotebook",
+        "dependsOn": [
+          { "activity": "Silver Delivery State", "dependencyConditions": ["Succeeded"] },
+          { "activity": "Silver Clickstream Sessions", "dependencyConditions": ["Succeeded"] }
+        ],
+        "policy": { "timeout": "0.00:20:00", "retry": 0, "retryIntervalInSeconds": 30, "secureInput": false, "secureOutput": false },
+        "typeProperties": {
+          "notebookId": "{{item:Notebook:nb_40_operational_health}}",
+          "workspaceId": "{{workspace_id}}",
+          "sessionTag": "radar-observability",
+          "parameters": { "run_id": { "value": "@pipeline().RunId", "type": "Expression" } }
+        }
+      }
+    ]
+  }
+}
