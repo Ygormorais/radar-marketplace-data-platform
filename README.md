@@ -1,8 +1,22 @@
 # Radar — Marketplace Data Platform
 
+[![CI](https://github.com/Ygormorais/radar-marketplace-data-platform/actions/workflows/ci.yml/badge.svg)](https://github.com/Ygormorais/radar-marketplace-data-platform/actions/workflows/ci.yml)
+[![Spark integration](https://github.com/Ygormorais/radar-marketplace-data-platform/actions/workflows/integration.yml/badge.svg)](https://github.com/Ygormorais/radar-marketplace-data-platform/actions/workflows/integration.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-2dd4bf.svg)](LICENSE)
+
 Plataforma de engenharia de dados para um marketplace brasileiro, construída para demonstrar uma arquitetura profissional com Microsoft Fabric, Spark, Delta Lake, SQL, dbt, streaming, qualidade e CI/CD.
 
-> **Status:** implementação end-to-end concluída: batch e streaming supervisionados, quality gates, Gold/dbt, refresh semântico, Power BI com quatro páginas, CI/CD e dashboard web publicável.
+> **Status:** código end-to-end concluído e validado por CI. A execução no tenant Fabric, o binding Direct Lake e a exportação Gold permanecem atividades dependentes de ambiente; o dashboard web versionado usa um snapshot sintético identificado por `metadata.mode=demo`.
+
+## Evidências verificáveis
+
+- [GitHub Actions](https://github.com/Ygormorais/radar-marketplace-data-platform/actions): lint, type-check, testes Python, contratos dbt/Power BI, Docker Compose e aplicação web;
+- [`fabric/notebooks`](fabric/notebooks): notebooks PySpark versionados no formato nativo do Fabric;
+- [`fabric/pipelines`](fabric/pipelines): orquestração batch e supervisor de streaming;
+- [`dbt`](dbt): staging, fatos, dimensões, marts, testes genéricos e singulares;
+- [`powerbi/Radar.pbip`](powerbi/Radar.pbip): modelo semântico TMDL e relatório PBIR revisáveis em Git;
+- [`docs/architecture/architecture.md`](docs/architecture/architecture.md): arquitetura, responsabilidades e trade-offs;
+- [`docs/portfolio-presentation.md`](docs/portfolio-presentation.md): checklist das evidências que dependem do tenant.
 
 ## Objetivo de negócio
 
@@ -195,3 +209,5 @@ O mapeamento técnico com vagas recentes está em [`docs/market-mapping.md`](doc
 ## Licença
 
 Código sob licença MIT. Os datasets mantêm suas próprias licenças e termos de uso.
+
+Projeto desenvolvido por [Ygor Morais](https://github.com/Ygormorais).

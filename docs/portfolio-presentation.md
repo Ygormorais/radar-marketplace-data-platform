@@ -2,14 +2,14 @@
 
 ## Checklist de publicação
 
-- [ ] Substituir autor/contato no `README` e habilitar Issues no GitHub.
+- [x] Identificar o autor no `README`, publicar o repositório e habilitar Issues no GitHub.
 - [ ] Proteger `main`, exigir CI e configurar environments `dev`, `test` e `prod`.
 - [ ] Adicionar secrets/variables OIDC e executar primeiro deployment no workspace `dev`.
 - [ ] Anexar o Fabric Environment com o wheel Radar e dependências dbt aos notebooks.
 - [ ] Executar batch, streaming supervisor e capturar o Monitoring Hub com um `run_id` comum.
 - [ ] Abrir `Radar.pbip`, fazer binding ao Warehouse e publicar modelo/relatório.
 - [ ] Atualizar o snapshot web com uma exportação Gold anonimizada ou manter o modo claramente marcado como demo.
-- [ ] Publicar o dashboard web e inserir o link no About do repositório e no LinkedIn.
+- [ ] Tornar o dashboard web acessível sem login e inserir o link no About do repositório e no LinkedIn.
 
 ## Capturas recomendadas
 
