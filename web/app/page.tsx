@@ -96,26 +96,23 @@ export default function Home() {
         if (!response.ok) throw new Error("dataset unavailable");
         return response.json() as Promise<DashboardData>;
       })
-      .then(setData)
+      .then((dashboardData) => {
+        const params = new URLSearchParams(window.location.search);
+        const requestedTab = params.get("tab");
+        const requestedYear = Number(params.get("year"));
+        const selectedPeriod = dashboardData.periods.find((item) => item.year === requestedYear) ?? dashboardData.periods[0];
+        const requestedRegion = params.get("uf") ?? "ALL";
+        const requestedChannel = params.get("canal") ?? "ALL";
+
+        if (isTab(requestedTab)) setTab(requestedTab);
+        setYear(selectedPeriod.year);
+        setRegion(selectedPeriod.regions.some((item) => item.state === requestedRegion) ? requestedRegion : "ALL");
+        setChannel(selectedPeriod.channels.some((item) => item.source === requestedChannel) ? requestedChannel : "ALL");
+        setData(dashboardData);
+        setUrlReady(true);
+      })
       .catch(() => setLoadError(true));
   }, []);
-
-  useEffect(() => {
-    if (!data || urlReady) return;
-
-    const params = new URLSearchParams(window.location.search);
-    const requestedTab = params.get("tab");
-    const requestedYear = Number(params.get("year"));
-    const selectedPeriod = data.periods.find((item) => item.year === requestedYear) ?? data.periods[0];
-    const requestedRegion = params.get("uf") ?? "ALL";
-    const requestedChannel = params.get("canal") ?? "ALL";
-
-    if (isTab(requestedTab)) setTab(requestedTab);
-    setYear(selectedPeriod.year);
-    setRegion(selectedPeriod.regions.some((item) => item.state === requestedRegion) ? requestedRegion : "ALL");
-    setChannel(selectedPeriod.channels.some((item) => item.source === requestedChannel) ? requestedChannel : "ALL");
-    setUrlReady(true);
-  }, [data, urlReady]);
 
   useEffect(() => {
     if (!urlReady) return;
