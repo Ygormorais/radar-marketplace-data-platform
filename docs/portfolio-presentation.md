@@ -9,7 +9,8 @@
 - [ ] Executar batch, streaming supervisor e capturar o Monitoring Hub com um `run_id` comum.
 - [ ] Abrir `Radar.pbip`, fazer binding ao Warehouse e publicar modelo/relatório.
 - [ ] Atualizar o snapshot web com uma exportação Gold anonimizada ou manter o modo claramente marcado como demo.
-- [ ] Tornar o dashboard web acessível sem login e inserir o link no About do repositório e no LinkedIn.
+- [x] Tornar o dashboard web acessível sem login e inserir o link no About do repositório.
+- [ ] Inserir o repositório e o dashboard no LinkedIn após registrar as evidências do Fabric.
 
 ## Capturas recomendadas
 

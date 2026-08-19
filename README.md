@@ -57,6 +57,8 @@ Os valores da imagem são ilustrativos; os visuais PBIR reais estão ligados às
 
 Uma aplicação web interativa e independente do tenant está em [`web`](web). Ela oferece filtros, páginas executiva/logística/funil/qualidade e consome um snapshot agregado das mesmas marts. A arquitetura e o contrato de anonimização estão em [`docs/web-dashboard.md`](docs/web-dashboard.md).
 
+**Dashboard navegável:** [abrir Radar Web](https://commercepulse-fabric.patriciadistemas.chatgpt.site). O snapshot publicado é sintético e permanece identificado como demonstrativo no próprio produto e em seus metadados.
+
 ## O que existe neste checkpoint
 
 - pacote Python instalável em `src/radar`;
