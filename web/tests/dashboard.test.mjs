@@ -42,3 +42,15 @@ test("snapshot público respeita o contrato analítico", async () => {
     }
   }
 });
+
+test("tabelas possuem alternativa responsiva sem rolagem lateral", async () => {
+  const [page, styles] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/globals.css", root), "utf8"),
+  ]);
+  assert.match(page, /data-label="Classificação"/);
+  assert.match(page, /data-label="Cobertura"/);
+  assert.match(styles, /\.table-panel thead \{ display: none; \}/);
+  assert.match(styles, /\.lineage-flow \{ display: grid; overflow: visible; \}/);
+  assert.match(styles, /\.tab-list \{ display: grid; grid-template-columns: 1fr 1fr;/);
+});
