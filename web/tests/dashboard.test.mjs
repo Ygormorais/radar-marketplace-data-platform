@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readdir, readFile, stat } from "node:fs/promises";
 import test from "node:test";
 
 const root = new URL("../", import.meta.url);
@@ -53,4 +53,15 @@ test("tabelas possuem alternativa responsiva sem rolagem lateral", async () => {
   assert.match(styles, /\.table-panel thead \{ display: none; \}/);
   assert.match(styles, /\.lineage-flow \{ display: grid; overflow: visible; \}/);
   assert.match(styles, /\.tab-list \{ display: grid; grid-template-columns: 1fr 1fr;/);
+});
+
+test("bundle inicial mantém o motor de gráficos fora da rota crítica", async () => {
+  const chunks = new URL("dist/client/_next/static/chunks/", root);
+  const files = await readdir(chunks);
+  const pageChunk = files.find((file) => /^page-.*\.js$/.test(file));
+  const chartsChunk = files.find((file) => /^charts-.*\.js$/.test(file));
+  assert.ok(pageChunk, "chunk da página não encontrado");
+  assert.ok(chartsChunk, "chunk assíncrono dos gráficos não encontrado");
+  const pageSize = (await stat(new URL(pageChunk, chunks))).size;
+  assert.ok(pageSize < 100_000, `bundle inicial excedeu 100 KB: ${pageSize}`);
 });

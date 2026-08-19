@@ -1,13 +1,8 @@
 "use client";
 
-import ReactECharts from "echarts-for-react/esm/core";
-import * as echarts from "echarts/core";
-import { BarChart, FunnelChart, GaugeChart, LineChart, ScatterChart } from "echarts/charts";
-import { AriaComponent, GridComponent, LegendComponent, TooltipComponent } from "echarts/components";
-import { CanvasRenderer } from "echarts/renderers";
-import { useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState, type CSSProperties } from "react";
 
-echarts.use([BarChart, FunnelChart, GaugeChart, LineChart, ScatterChart, AriaComponent, GridComponent, LegendComponent, TooltipComponent, CanvasRenderer]);
+const LazyRadarChart = lazy(() => import("./charts"));
 
 type Monthly = { month: string; gmv: number; orders: number; sla: number; review: number };
 type Region = { state: string; gmv: number; orders: number; atRisk: number; late: number; sla: number };
@@ -61,6 +56,14 @@ function ChartPanel({ kicker, title, action, children, className = "" }: { kicke
       </div>
       {children}
     </article>
+  );
+}
+
+function RadarChart({ style, ...props }: { option: unknown; style: CSSProperties; notMerge?: boolean }) {
+  return (
+    <Suspense fallback={<div className="chart-loading" style={style} role="status" aria-label="Carregando visualização" />}>
+      <LazyRadarChart {...props} style={style} />
+    </Suspense>
   );
 }
 
@@ -209,9 +212,9 @@ export default function Home() {
           <KpiCard label="Avaliação média" value={`${decimal.format(review)} / 5`} change={region === "ALL" ? delta(review, period.previous.review) : undefined} detail="reviews respondidos" tone="pink" />
         </section>
         <section className="analytics-grid executive-grid">
-          <ChartPanel kicker="PERFORMANCE" title="GMV por mês" className="wide"><ReactECharts echarts={echarts} option={gmvOption} style={{ height: 315 }} notMerge /></ChartPanel>
-          <ChartPanel kicker="SELLER SCORECARD" title="Ranking por GMV"><ReactECharts echarts={echarts} option={sellerOption} style={{ height: 315 }} notMerge /></ChartPanel>
-          <ChartPanel kicker="RISCO OPERACIONAL" title="Risco logístico por UF" className="half"><ReactECharts echarts={echarts} option={regionOption} style={{ height: 285 }} notMerge /></ChartPanel>
+          <ChartPanel kicker="PERFORMANCE" title="GMV por mês" className="wide"><RadarChart option={gmvOption} style={{ height: 315 }} notMerge /></ChartPanel>
+          <ChartPanel kicker="SELLER SCORECARD" title="Ranking por GMV"><RadarChart option={sellerOption} style={{ height: 315 }} notMerge /></ChartPanel>
+          <ChartPanel kicker="RISCO OPERACIONAL" title="Risco logístico por UF" className="half"><RadarChart option={regionOption} style={{ height: 285 }} notMerge /></ChartPanel>
           <ChartPanel kicker="DECISÃO" title="Leitura executiva" className="half insight-panel">
             <div className="insight-callout"><b>01</b><div><strong>SLA pressionado</strong><p>RJ, BA e PE concentram a maior diferença para a meta operacional de 90%.</p></div></div>
             <div className="insight-callout"><b>02</b><div><strong>Crescimento sustentável</strong><p>GMV cresce acima do volume, indicando expansão do ticket médio.</p></div></div>
@@ -228,8 +231,8 @@ export default function Home() {
           <KpiCard label="Sellers monitorados" value={integer.format(sellers.length)} detail="scorecard priorizado" tone="blue" />
         </section>
         <section className="analytics-grid logistics-grid">
-          <ChartPanel kicker="GEOGRAFIA" title="Exposição por UF" className="half"><ReactECharts echarts={echarts} option={regionOption} style={{ height: 330 }} notMerge /></ChartPanel>
-          <ChartPanel kicker="SELLER RISK" title="Atraso médio × GMV" className="half"><ReactECharts echarts={echarts} option={sellerScatterOption} style={{ height: 330 }} notMerge /></ChartPanel>
+          <ChartPanel kicker="GEOGRAFIA" title="Exposição por UF" className="half"><RadarChart option={regionOption} style={{ height: 330 }} notMerge /></ChartPanel>
+          <ChartPanel kicker="SELLER RISK" title="Atraso médio × GMV" className="half"><RadarChart option={sellerScatterOption} style={{ height: 330 }} notMerge /></ChartPanel>
           <ChartPanel kicker="PRIORIZAÇÃO" title="Sellers para intervenção" className="full table-panel">
             <div className="table-wrap"><table><thead><tr><th>Seller</th><th>UF</th><th>GMV</th><th>Pedidos</th><th>SLA</th><th>Atraso médio</th><th>Classificação</th></tr></thead><tbody>{[...sellers].sort((a, b) => a.sla - b.sla).map((item) => <tr key={item.id}><td data-label="Seller"><code>{item.id}</code></td><td data-label="UF">{item.state}</td><td data-label="GMV">{currency.format(item.gmv)}</td><td data-label="Pedidos">{integer.format(item.orders)}</td><td data-label="SLA">{percent.format(item.sla)}</td><td data-label="Atraso médio">{decimal.format(item.avgDelay)} d</td><td data-label="Classificação"><span className={`badge ${item.sla < .86 ? "critical" : item.sla < .9 ? "warning" : "healthy"}`}>{item.sla < .86 ? "Crítico" : item.sla < .9 ? "Atenção" : "Saudável"}</span></td></tr>)}</tbody></table></div>
           </ChartPanel>
@@ -244,8 +247,8 @@ export default function Home() {
           <KpiCard label="Conversão" value={percent.format(aggregateChannel.purchases / aggregateChannel.sessions)} detail="sessão → compra" tone="pink" />
         </section>
         <section className="analytics-grid funnel-grid">
-          <ChartPanel kicker="JORNADA" title="Funil consolidado" className="half"><ReactECharts echarts={echarts} option={funnelOption} style={{ height: 370 }} notMerge /></ChartPanel>
-          <ChartPanel kicker="AQUISIÇÃO" title="Conversão por origem" className="half"><ReactECharts echarts={echarts} option={channelOption} style={{ height: 370 }} notMerge /></ChartPanel>
+          <ChartPanel kicker="JORNADA" title="Funil consolidado" className="half"><RadarChart option={funnelOption} style={{ height: 370 }} notMerge /></ChartPanel>
+          <ChartPanel kicker="AQUISIÇÃO" title="Conversão por origem" className="half"><RadarChart option={channelOption} style={{ height: 370 }} notMerge /></ChartPanel>
           <ChartPanel kicker="DIAGNÓSTICO" title="Eficiência entre etapas" className="full stage-grid-panel">
             <div className="stage-grid">{[
               ["Sessão → produto", aggregateChannel.views / aggregateChannel.sessions], ["Produto → carrinho", aggregateChannel.carts / aggregateChannel.views], ["Carrinho → checkout", aggregateChannel.checkouts / aggregateChannel.carts], ["Checkout → compra", aggregateChannel.purchases / aggregateChannel.checkouts],
@@ -255,7 +258,7 @@ export default function Home() {
       </>}
 
       {tab === "quality" && <section className="analytics-grid quality-grid">
-        <ChartPanel kicker="QUALITY GATE" title="Confiabilidade do snapshot" className="quality-gauge"><ReactECharts echarts={echarts} option={qualityOption} style={{ height: 300 }} notMerge /></ChartPanel>
+        <ChartPanel kicker="QUALITY GATE" title="Confiabilidade do snapshot" className="quality-gauge"><RadarChart option={qualityOption} style={{ height: 300 }} notMerge /></ChartPanel>
         <ChartPanel kicker="CONTRATOS" title="Resultado dos testes" className="quality-table table-panel">
           <div className="table-wrap"><table><thead><tr><th>Teste</th><th>Escopo</th><th>Cobertura</th><th>Falhas</th><th>Status</th></tr></thead><tbody>{data.quality.map((item) => <tr key={item.name}><td data-label="Teste">{item.name}</td><td data-label="Escopo">{item.scope}</td><td data-label="Cobertura">{percent.format(item.coverage)}</td><td data-label="Falhas">{integer.format(item.failedRows)}</td><td data-label="Status"><span className={`badge ${item.status === "passed" ? "healthy" : "warning"}`}>{item.status === "passed" ? "Aprovado" : "Alerta"}</span></td></tr>)}</tbody></table></div>
         </ChartPanel>
