@@ -55,6 +55,16 @@ test("tabelas possuem alternativa responsiva sem rolagem lateral", async () => {
   assert.match(styles, /\.tab-list \{ display: grid; grid-template-columns: 1fr 1fr;/);
 });
 
+test("visões analíticas podem ser restauradas e compartilhadas por URL", async () => {
+  const page = await readFile(new URL("app/page.tsx", root), "utf8");
+  assert.match(page, /new URLSearchParams\(window\.location\.search\)/);
+  assert.match(page, /window\.history\.replaceState/);
+  assert.match(page, /params\.set\("tab", tab\)/);
+  assert.match(page, /params\.set\("year", String\(year\)\)/);
+  assert.match(page, /navigator\.clipboard\.writeText\(window\.location\.href\)/);
+  assert.match(page, /"Copiar visão"/);
+});
+
 test("bundle inicial mantém o motor de gráficos fora da rota crítica", async () => {
   const chunks = new URL("dist/client/_next/static/chunks/", root);
   const files = await readdir(chunks);

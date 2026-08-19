@@ -18,6 +18,18 @@ type DashboardData = {
 };
 
 type Tab = "executive" | "logistics" | "funnel" | "quality";
+type CopyFeedback = "idle" | "copied" | "error";
+
+const tabs: { id: Tab; label: string }[] = [
+  { id: "executive", label: "Executivo" },
+  { id: "logistics", label: "Logística" },
+  { id: "funnel", label: "Funil digital" },
+  { id: "quality", label: "Qualidade" },
+];
+
+function isTab(value: string | null): value is Tab {
+  return tabs.some((item) => item.id === value);
+}
 
 const currency = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", notation: "compact", maximumFractionDigits: 1 });
 const integer = new Intl.NumberFormat("pt-BR");
@@ -75,6 +87,8 @@ export default function Home() {
   const [region, setRegion] = useState("ALL");
   const [channel, setChannel] = useState("ALL");
   const [architectureOpen, setArchitectureOpen] = useState(false);
+  const [urlReady, setUrlReady] = useState(false);
+  const [copyFeedback, setCopyFeedback] = useState<CopyFeedback>("idle");
 
   useEffect(() => {
     fetch("/data/dashboard.json")
@@ -85,6 +99,40 @@ export default function Home() {
       .then(setData)
       .catch(() => setLoadError(true));
   }, []);
+
+  useEffect(() => {
+    if (!data || urlReady) return;
+
+    const params = new URLSearchParams(window.location.search);
+    const requestedTab = params.get("tab");
+    const requestedYear = Number(params.get("year"));
+    const selectedPeriod = data.periods.find((item) => item.year === requestedYear) ?? data.periods[0];
+    const requestedRegion = params.get("uf") ?? "ALL";
+    const requestedChannel = params.get("canal") ?? "ALL";
+
+    if (isTab(requestedTab)) setTab(requestedTab);
+    setYear(selectedPeriod.year);
+    setRegion(selectedPeriod.regions.some((item) => item.state === requestedRegion) ? requestedRegion : "ALL");
+    setChannel(selectedPeriod.channels.some((item) => item.source === requestedChannel) ? requestedChannel : "ALL");
+    setUrlReady(true);
+  }, [data, urlReady]);
+
+  useEffect(() => {
+    if (!urlReady) return;
+
+    const params = new URLSearchParams();
+    params.set("tab", tab);
+    params.set("year", String(year));
+    if (region !== "ALL") params.set("uf", region);
+    if (channel !== "ALL") params.set("canal", channel);
+    window.history.replaceState(null, "", `${window.location.pathname}?${params.toString()}${window.location.hash}`);
+  }, [tab, year, region, channel, urlReady]);
+
+  useEffect(() => {
+    if (copyFeedback === "idle") return;
+    const feedbackTimer = window.setTimeout(() => setCopyFeedback("idle"), 2400);
+    return () => window.clearTimeout(feedbackTimer);
+  }, [copyFeedback]);
 
   useEffect(() => {
     if (!architectureOpen) return;
@@ -182,13 +230,32 @@ export default function Home() {
     series: [{ type: "gauge", startAngle: 210, endAngle: -30, min: 0.95, max: 1, splitNumber: 5, progress: { show: true, width: 18, itemStyle: { color: "#2dd4bf" } }, axisLine: { lineStyle: { width: 18, color: [[1, "#203b52"]] } }, pointer: { show: false }, axisTick: { show: false }, splitLine: { show: false }, axisLabel: { show: false }, anchor: { show: false }, title: { offsetCenter: [0, "42%"], color: "#8ca4bb", fontSize: 11 }, detail: { valueAnimation: true, offsetCenter: [0, "0%"], color: "#f4f8fc", fontSize: 34, fontWeight: 700, formatter: (value: number) => `${(value * 100).toFixed(2)}%` }, data: [{ value: qualityScore, name: "quality gate" }] }],
   };
 
-  const tabs: { id: Tab; label: string }[] = [{ id: "executive", label: "Executivo" }, { id: "logistics", label: "Logística" }, { id: "funnel", label: "Funil digital" }, { id: "quality", label: "Qualidade" }];
+  const copyCurrentView = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopyFeedback("copied");
+    } catch {
+      setCopyFeedback("error");
+    }
+  };
+
+  const changeYear = (nextYear: number) => {
+    setYear(nextYear);
+    setRegion("ALL");
+    setChannel("ALL");
+  };
 
   return (
     <main className="dashboard-shell">
       <header className="topbar">
         <div className="brand-block"><span className="brand-mark" aria-hidden="true" /><div><p className="eyebrow">RADAR / MARKETPLACE DATA PLATFORM</p><h1>{tabs.find((item) => item.id === tab)?.label}</h1></div></div>
-        <div className="header-actions"><button className="ghost-button" onClick={() => setArchitectureOpen(true)}>Ver arquitetura</button><span className="status-pill"><i /> Snapshot Gold</span></div>
+        <div className="header-actions">
+          <button className="ghost-button" onClick={() => setArchitectureOpen(true)}>Ver arquitetura</button>
+          <button className={`share-button ${copyFeedback}`} onClick={copyCurrentView} disabled={!urlReady} aria-live="polite">
+            {copyFeedback === "copied" ? "Link copiado" : copyFeedback === "error" ? "Não foi possível copiar" : "Copiar visão"}
+          </button>
+          <span className="status-pill"><i /> Snapshot Gold</span>
+        </div>
       </header>
 
       <div className="tab-list" aria-label="Áreas do dashboard" role="tablist">
@@ -196,7 +263,7 @@ export default function Home() {
       </div>
 
       <section className="filter-bar" aria-label="Filtros analíticos">
-        <label><span>Ano</span><select value={year} onChange={(event) => setYear(Number(event.target.value))}>{data.periods.map((item) => <option key={item.year}>{item.year}</option>)}</select></label>
+        <label><span>Ano</span><select value={year} onChange={(event) => changeYear(Number(event.target.value))}>{data.periods.map((item) => <option key={item.year}>{item.year}</option>)}</select></label>
         <label><span>UF</span><select value={region} onChange={(event) => setRegion(event.target.value)}><option value="ALL">Brasil</option>{period.regions.map((item) => <option key={item.state}>{item.state}</option>)}</select></label>
         <label><span>Origem</span><select value={channel} onChange={(event) => setChannel(event.target.value)}><option value="ALL">Todos os canais</option>{period.channels.map((item) => <option key={item.source}>{item.source}</option>)}</select></label>
         <button className="reset-button" onClick={() => { setRegion("ALL"); setChannel("ALL"); }}>Limpar filtros</button>
